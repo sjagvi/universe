@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Complete AI Security Universe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: radial-gradient(ellipse at center, #0a0e27 0%, #000 70%);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .universe-container {
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Animated background stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Main content */
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .hero-section {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .universe-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f39c12, #22c55e);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 4s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .hero-tagline {
+            font-size: 1.8rem;
+            color: #a0a0b0;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .universe-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .stat-card {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: #667eea;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            counter-reset: number;
+        }
+        
+        .stat-number.animated {
+            animation: countUp 2s ease-out;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #a0a0b0;
+            margin-bottom: 10px;
+        }
+        
+        .stat-description {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .ai-ecosystem {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #667eea;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .ecosystem-category {
+            background: linear-gradient(135deg, rgba(45, 45, 68, 0.9), rgba(26, 26, 46, 0.9));
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ecosystem-category:hover {
+            transform: scale(1.02);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .category-count {
+            background: rgba(102, 126, 234, 0.8);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-left: auto;
+        }
+        
+        .ai-systems {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .ai-system {
+            background: rgba(26, 26, 46, 0.7);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .ai-system:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.3);
+            transform: translateX(10px);
+        }
+        
+        .system-name {
+            font-weight: bold;
+            color: #22c55e;
+            margin-bottom: 5px;
+        }
+        
+        .system-description {
+            color: #a0a0b0;
+            font-size: 0.9rem;
+        }
+        
+        .system-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        .protection-scope {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.1));
+            border: 2px solid rgba(34, 197, 94, 0.3);
+            border-radius: 25px;
+            padding: 50px;
+            text-align: center;
+            margin-bottom: 80px;
+            backdrop-filter: blur(15px);
+        }
+        
+        .protection-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #22c55e;
+            margin-bottom: 30px;
+        }
+        
+        .protection-text {
+            font-size: 1.3rem;
+            color: #fff;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        
+        .highlight {
+            color: #fbbf24;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+        
+        .vision-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 25px;
+            padding: 50px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .vision-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+        
+        .vision-text {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .analogy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .analogy-card {
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .analogy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+        .analogy-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .analogy-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #22c55e;
+        }
+        
+        .analogy-description {
+            color: #a0a0b0;
+            font-size: 0.9rem;
+        }
+        
+        .interactive-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            background: rgba(102, 126, 234, 0.9);
+            border: none;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1);
+            background: rgba(102, 126, 234, 1);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes countUp {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+        
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+        
+        
+        .maitif-framework {
+            margin-bottom: 80px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 25px;
+            padding: 50px;
+        }
+        
+        .framework-subtitle {
+            text-align: center;
+            color: #a0a0b0;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        
+        .framework-section {
+            margin-bottom: 40px;
+        }
+        
+        .framework-section-title {
+            font-size: 1.5rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .core-packages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .package-card {
+            background: linear-gradient(135deg, rgba(45, 45, 68, 0.9), rgba(26, 26, 46, 0.9));
+            border: 2px solid;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .package-card.core-lite {
+            border-color: #ef4444;
+        }
+        
+        .package-card.core-standard {
+            border-color: #22c55e;
+            transform: scale(1.05);
+        }
+        
+        .package-card.core-complete {
+            border-color: #f59e0b;
+        }
+        
+        .package-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #22c55e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .package-header {
+            margin-bottom: 15px;
+        }
+        
+        .package-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .package-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #22c55e;
+        }
+        
+        .vector-count {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .package-type {
+            color: #a0a0b0;
+            margin-bottom: 5px;
+        }
+        
+        .coverage {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+        
+        .amplifier-grid, .enhancement-grid, .compliance-grid, .deployment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .amplifier-card, .enhancement-card, .compliance-card, .deployment-card {
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .amplifier-card.healthcare { border-color: #22c55e; }
+        .amplifier-card.finance { border-color: #3b82f6; }
+        .amplifier-card.legal { border-color: #8b5cf6; }
+        .amplifier-card.education { border-color: #f59e0b; }
+        .amplifier-card.retail { border-color: #ef4444; }
+        .amplifier-card.government { border-color: #6b7280; }
+        
+        .enhancement-card.llms { border-color: #8b5cf6; }
+        .enhancement-card.vision { border-color: #06b6d4; }
+        .enhancement-card.rag { border-color: #22c55e; }
+        .enhancement-card.multiagent { border-color: #f59e0b; }
+        .enhancement-card.recommendation { border-color: #ef4444; }
+        
+        .compliance-card.eu { border-color: #3b82f6; }
+        .compliance-card.us { border-color: #ef4444; }
+        .compliance-card.california { border-color: #f59e0b; }
+        .compliance-card.apac { border-color: #22c55e; }
+        
+        .deployment-card.cloud { border-color: #06b6d4; }
+        .deployment-card.edge { border-color: #8b5cf6; }
+        .deployment-card.premise { border-color: #6b7280; }
+        .deployment-card.hybrid { border-color: #22c55e; }
+        
+        .amplifier-card:hover, .enhancement-card:hover, .compliance-card:hover, .deployment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .amplifier-name, .enhancement-name, .compliance-name, .deployment-name {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .amplifier-vectors, .deployment-vectors {
+            color: #22c55e;
+            font-weight: bold;
+        }
+        
+        .enhancement-details, .compliance-details {
+            color: #a0a0b0;
+            font-size: 0.9rem;
+        }
+        
+        .package-builder {
+            background: rgba(34, 197, 94, 0.1);
+            border: 2px solid rgba(34, 197, 94, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        
+        .builder-title {
+            color: #22c55e;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .builder-example {
+            text-align: center;
+        }
+        
+        .example-formula {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .example-calculation {
+            font-size: 1.1rem;
+            color: #a0a0b0;
+            font-family: monospace;
+        }
+        
+        .total-vectors {
+            color: #22c55e;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        .selection-flow {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        
+        .flow-title {
+            color: #667eea;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .flow-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .flow-step {
+            background: rgba(102, 126, 234, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .flow-arrow {
+            color: #667eea;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .framework-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .summary-stat {
+            text-align: center;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        
+        .summary-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #22c55e;
+            margin-bottom: 10px;
+        }
+        
+        
+        .selected {
+            border-color: #22c55e !important;
+            background: rgba(34, 197, 94, 0.2) !important;
+            transform: scale(1.05) !important;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5) !important;
+        }
+        
+        .package-card.selected {
+            border-width: 3px;
+        }
+            .ecosystem-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analogy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .universe-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .interactive-controls {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .hero-tagline {
+                font-size: 1.3rem;
+            }
+            
+            .protection-text,
+            .vision-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="universe-container">
+        <!-- Animated star background -->
+        <div class="stars" id="stars"></div>
+        
+        <div class="content">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h1 class="universe-title">The Complete AI Security Universe</h1>
+                <p class="hero-tagline">
+                    If it uses AI to process language, understand context, or generate responses, 
+                    <span class="highlight">Mythropic's AITIP can secure it</span>
+                </p>
+            </div>
+            
+            <!-- Universe Statistics -->
+            <div class="universe-stats">
+                <div class="stat-card tooltip" data-tooltip="AI systems currently deployed globally">
+                    <div class="stat-number" id="aiSystems">500,000+</div>
+                    <div class="stat-label">AI Systems Deployed</div>
+                    <div class="stat-description">From chatbots to enterprise AI</div>
+                </div>
+                
+                <div class="stat-card tooltip" data-tooltip="New AI systems being deployed every month">
+                    <div class="stat-number" id="monthlyGrowth">50,000+</div>
+                    <div class="stat-label">Monthly Growth</div>
+                    <div class="stat-description">Exponential AI adoption</div>
+                </div>
+                
+                <div class="stat-card tooltip" data-tooltip="Total addressable market for AI security">
+                    <div class="stat-number" id="marketSize">$50B</div>
+                    <div class="stat-label">Market Opportunity</div>
+                    <div class="stat-description">Growing at 187% CAGR</div>
+                </div>
+                
+                <div class="stat-card tooltip" data-tooltip="AITIF's potential market coverage">
+                    <div class="stat-number" id="coverage">100%</div>
+                    <div class="stat-label">Universe Coverage</div>
+                    <div class="stat-description">Every AI system, everywhere</div>
+                </div>
+            </div>
+            
+            <!-- AI Ecosystem Categories -->
+            <div class="ai-ecosystem">
+                <h2 class="section-title">🌌 Every AI System We Can Secure</h2>
+                
+                <div class="ecosystem-grid">
+                    <!-- Large Language Models -->
+                    <div class="ecosystem-category" onclick="expandCategory(this)">
+                        <div class="category-header">
+                            <div class="category-icon">🧠</div>
+                            <div class="category-title">Large Language Models</div>
+                            <div class="category-count">25+ Models</div>
+                        </div>
+                        <div class="ai-systems">
+                            <div class="ai-system">
+                                <div class="system-name">GPT-4 & Enterprise Variants</div>
+                                <div class="system-description">OpenAI's flagship models across all implementations</div>
+                                <div class="system-tags">
+                                    <span class="tag">Commercial</span>
+                                    <span class="tag">Enterprise</span>
+                                    <span class="tag">API</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Claude Family (Anthropic)</div>
+                                <div class="system-description">Constitutional AI with advanced reasoning</div>
+                                <div class="system-tags">
+                                    <span class="tag">Safety-focused</span>
+                                    <span class="tag">Long Context</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Open Source Models</div>
+                                <div class="system-description">Llama-2, Mistral, Falcon, and custom fine-tunes</div>
+                                <div class="system-tags">
+                                    <span class="tag">Self-hosted</span>
+                                    <span class="tag">Customizable</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Conversational AI -->
+                    <div class="ecosystem-category" onclick="expandCategory(this)">
+                        <div class="category-header">
+                            <div class="category-icon">💬</div>
+                            <div class="category-title">Conversational AI</div>
+                            <div class="category-count">1M+ Bots</div>
+                        </div>
+                        <div class="ai-systems">
+                            <div class="ai-system">
+                                <div class="system-name">Customer Service Bots</div>
+                                <div class="system-description">Zendesk, Intercom, LiveChat AI assistants</div>
+                                <div class="system-tags">
+                                    <span class="tag">24/7 Support</span>
+                                    <span class="tag">Multi-language</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Virtual Assistants</div>
+                                <div class="system-description">Siri, Alexa, Google Assistant integrations</div>
+                                <div class="system-tags">
+                                    <span class="tag">Voice</span>
+                                    <span class="tag">IoT Connected</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Enterprise Chatbots</div>
+                                <div class="system-description">Microsoft Bot Framework, IBM Watson</div>
+                                <div class="system-tags">
+                                    <span class="tag">Internal Tools</span>
+                                    <span class="tag">Workflow</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI-Powered Applications -->
+                    <div class="ecosystem-category" onclick="expandCategory(this)">
+                        <div class="category-header">
+                            <div class="category-icon">📱</div>
+                            <div class="category-title">AI Applications</div>
+                            <div class="category-count">10K+ Apps</div>
+                        </div>
+                        <div class="ai-systems">
+                            <div class="ai-system">
+                                <div class="system-name">Content Generation</div>
+                                <div class="system-description">Jasper, Copy.ai, Notion AI, Grammarly</div>
+                                <div class="system-tags">
+                                    <span class="tag">Writing</span>
+                                    <span class="tag">Marketing</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Code Assistants</div>
+                                <div class="system-description">GitHub Copilot, TabNine, Amazon CodeWhisperer</div>
+                                <div class="system-tags">
+                                    <span class="tag">Developer Tools</span>
+                                    <span class="tag">IDE Integration</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Productivity Suites</div>
+                                <div class="system-description">Microsoft 365 Copilot, Google Workspace AI</div>
+                                <div class="system-tags">
+                                    <span class="tag">Office</span>
+                                    <span class="tag">Collaboration</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Multi-Modal Systems -->
+                    <div class="ecosystem-category" onclick="expandCategory(this)">
+                        <div class="category-header">
+                            <div class="category-icon">🎭</div>
+                            <div class="category-title">Multi-Modal AI</div>
+                            <div class="category-count">500+ Systems</div>
+                        </div>
+                        <div class="ai-systems">
+                            <div class="ai-system">
+                                <div class="system-name">Vision + Language</div>
+                                <div class="system-description">GPT-4V, Claude-3 Vision, Gemini Pro Vision</div>
+                                <div class="system-tags">
+                                    <span class="tag">Image Analysis</span>
+                                    <span class="tag">OCR</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Voice AI</div>
+                                <div class="system-description">Whisper, ElevenLabs, speech synthesis</div>
+                                <div class="system-tags">
+                                    <span class="tag">Speech-to-Text</span>
+                                    <span class="tag">Voice Cloning</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Document AI</div>
+                                <div class="system-description">PDF analysis, form processing, data extraction</div>
+                                <div class="system-tags">
+                                    <span class="tag">Automation</span>
+                                    <span class="tag">Data Processing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Industry-Specific AI -->
+                    <div class="ecosystem-category" onclick="expandCategory(this)">
+                        <div class="category-header">
+                            <div class="category-icon">🏭</div>
+                            <div class="category-title">Industry AI</div>
+                            <div class="category-count">100+ Verticals</div>
+                        </div>
+                        <div class="ai-systems">
+                            <div class="ai-system">
+                                <div class="system-name">Financial AI</div>
+                                <div class="system-description">Trading bots, fraud detection, risk assessment</div>
+                                <div class="system-tags">
+                                    <span class="tag">Banking</span>
+                                    <span class="tag">Insurance</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Healthcare AI</div>
+                                <div class="system-description">Clinical AI, medical chatbots, drug discovery</div>
+                                <div class="system-tags">
+                                    <span class="tag">HIPAA</span>
+                                    <span class="tag">FDA Regulated</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Legal AI</div>
+                                <div class="system-description">Contract analysis, legal research, compliance</div>
+                                <div class="system-tags">
+                                    <span class="tag">Law Firms</span>
+                                    <span class="tag">Compliance</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Deployment Types -->
+                    <div class="ecosystem-category" onclick="expandCategory(this)">
+                        <div class="category-header">
+                            <div class="category-icon">☁️</div>
+                            <div class="category-title">Deployment Models</div>
+                            <div class="category-count">5 Types</div>
+                        </div>
+                        <div class="ai-systems">
+                            <div class="ai-system">
+                                <div class="system-name">Cloud Deployments</div>
+                                <div class="system-description">AWS, Azure, GCP hosted AI systems</div>
+                                <div class="system-tags">
+                                    <span class="tag">Scalable</span>
+                                    <span class="tag">Multi-tenant</span>
+                                    <span class="tag">12 vectors</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">On-Premise</div>
+                                <div class="system-description">Self-hosted, air-gapped AI systems</div>
+                                <div class="system-tags">
+                                    <span class="tag">Secure</span>
+                                    <span class="tag">Compliant</span>
+                                    <span class="tag">8 vectors</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Hybrid Systems</div>
+                                <div class="system-description">Mixed cloud and on-premise deployments</div>
+                                <div class="system-tags">
+                                    <span class="tag">Flexible</span>
+                                    <span class="tag">Complex</span>
+                                    <span class="tag">15 vectors</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Edge/IoT AI</div>
+                                <div class="system-description">Local processing with connectivity</div>
+                                <div class="system-tags">
+                                    <span class="tag">Low Latency</span>
+                                    <span class="tag">IoT</span>
+                                    <span class="tag">6 vectors</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI System Enhancement Types -->
+                    <div class="ecosystem-category" onclick="expandCategory(this)">
+                        <div class="category-header">
+                            <div class="category-icon">🔧</div>
+                            <div class="category-title">AI Enhancement Systems</div>
+                            <div class="category-count">5 Categories</div>
+                        </div>
+                        <div class="ai-systems">
+                            <div class="ai-system">
+                                <div class="system-name">RAG Systems</div>
+                                <div class="system-description">Retrieval-Augmented Generation pipelines</div>
+                                <div class="system-tags">
+                                    <span class="tag">Vector DB</span>
+                                    <span class="tag">Knowledge Base</span>
+                                    <span class="tag">15 vectors</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Multi-Agent Systems</div>
+                                <div class="system-description">Collaborative AI agent networks</div>
+                                <div class="system-tags">
+                                    <span class="tag">Coordination</span>
+                                    <span class="tag">Workflow</span>
+                                    <span class="tag">18 vectors</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Computer Vision AI</div>
+                                <div class="system-description">Image/video processing with language</div>
+                                <div class="system-tags">
+                                    <span class="tag">Vision+NLP</span>
+                                    <span class="tag">OCR</span>
+                                    <span class="tag">12 vectors</span>
+                                </div>
+                            </div>
+                            <div class="ai-system">
+                                <div class="system-name">Recommendation Engines</div>
+                                <div class="system-description">ML-powered personalization with explanations</div>
+                                <div class="system-tags">
+                                    <span class="tag">Personalization</span>
+                                    <span class="tag">Human-AI</span>
+                                    <span class="tag">10 vectors</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- M-AITIF Framework Section -->
+            <div class="maitif-framework">
+                <h2 class="section-title">🧩 Mythropic's Modular AI Threat Intelligence Platform (M-AITIP)</h2>
+                <div class="framework-subtitle">
+                    Layer Architecture & Package Selection Flow - 220+ Threat Vectors
+                </div>
+                
+                <!-- Core Foundation Packages -->
+                <div class="framework-section">
+                    <h3 class="framework-section-title">CORE Foundation (Required - Choose One)</h3>
+                    <div class="core-packages">
+                        <div class="package-card core-lite">
+                            <div class="package-header">
+                                <div class="package-name">Core Lite</div>
+                                <div class="package-price">$499/mo</div>
+                            </div>
+                            <div class="package-details">
+                                <div class="vector-count">50 vectors</div>
+                                <div class="package-type">Startups • MVP</div>
+                                <div class="coverage">60% coverage</div>
+                            </div>
+                        </div>
+                        
+                        <div class="package-card core-standard popular">
+                            <div class="popular-badge">MOST POPULAR</div>
+                            <div class="package-header">
+                                <div class="package-name">Core Standard</div>
+                                <div class="package-price">$899/mo</div>
+                            </div>
+                            <div class="package-details">
+                                <div class="vector-count">75 vectors</div>
+                                <div class="package-type">Scale-ups • Production</div>
+                                <div class="coverage">85% coverage</div>
+                            </div>
+                        </div>
+                        
+                        <div class="package-card core-complete">
+                            <div class="package-header">
+                                <div class="package-name">Core Complete</div>
+                                <div class="package-price">$1,249/mo</div>
+                            </div>
+                            <div class="package-details">
+                                <div class="vector-count">100 vectors</div>
+                                <div class="package-type">Enterprise • Regulated</div>
+                                <div class="coverage">95% coverage</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Industry Amplifiers -->
+                <div class="framework-section">
+                    <h3 class="framework-section-title">Industry Amplifiers • $149/mo each</h3>
+                    <div class="amplifier-grid">
+                        <div class="amplifier-card healthcare">
+                            <div class="amplifier-name">Healthcare</div>
+                            <div class="amplifier-vectors">18 vectors</div>
+                        </div>
+                        <div class="amplifier-card finance">
+                            <div class="amplifier-name">Finance</div>
+                            <div class="amplifier-vectors">20 vectors</div>
+                        </div>
+                        <div class="amplifier-card legal">
+                            <div class="amplifier-name">Legal</div>
+                            <div class="amplifier-vectors">12 vectors</div>
+                        </div>
+                        <div class="amplifier-card education">
+                            <div class="amplifier-name">Education</div>
+                            <div class="amplifier-vectors">10 vectors</div>
+                        </div>
+                        <div class="amplifier-card retail">
+                            <div class="amplifier-name">Retail</div>
+                            <div class="amplifier-vectors">10 vectors</div>
+                        </div>
+                        <div class="amplifier-card government">
+                            <div class="amplifier-name">Government</div>
+                            <div class="amplifier-vectors">15 vectors</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Systems Enhancement -->
+                <div class="framework-section">
+                    <h3 class="framework-section-title">AI Systems Enhancement (Required - Select At Least One) • $99/mo each</h3>
+                    <div class="enhancement-grid">
+                        <div class="enhancement-card llms">
+                            <div class="enhancement-name">LLMs</div>
+                            <div class="enhancement-details">15 vectors<br>ChatGPT, Claude, GPT-4</div>
+                        </div>
+                        <div class="enhancement-card vision">
+                            <div class="enhancement-name">Computer Vision</div>
+                            <div class="enhancement-details">12 vectors<br>Image/Video Processing</div>
+                        </div>
+                        <div class="enhancement-card rag">
+                            <div class="enhancement-name">RAG Systems</div>
+                            <div class="enhancement-details">15 vectors<br>Retrieval Augmented Gen</div>
+                        </div>
+                        <div class="enhancement-card multiagent">
+                            <div class="enhancement-name">Multi-Agent</div>
+                            <div class="enhancement-details">18 vectors<br>Agent Coordination</div>
+                        </div>
+                        <div class="enhancement-card recommendation">
+                            <div class="enhancement-name">Recommendation</div>
+                            <div class="enhancement-details">10 vectors<br>Explainable Human AI</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Geographic Compliance -->
+                <div class="framework-section">
+                    <h3 class="framework-section-title">Geographic Compliance • $149/mo each</h3>
+                    <div class="compliance-grid">
+                        <div class="compliance-card eu">
+                            <div class="compliance-name">European Union</div>
+                            <div class="compliance-details">GDPR • AI Act<br>25 vectors</div>
+                        </div>
+                        <div class="compliance-card us">
+                            <div class="compliance-name">United States</div>
+                            <div class="compliance-details">Federal Laws<br>20 vectors</div>
+                        </div>
+                        <div class="compliance-card california">
+                            <div class="compliance-name">California</div>
+                            <div class="compliance-details">CCPA/CPRA<br>15 vectors</div>
+                        </div>
+                        <div class="compliance-card apac">
+                            <div class="compliance-name">Asia-Pacific</div>
+                            <div class="compliance-details">Regional Laws<br>13 vectors</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Deployment Boosters -->
+                <div class="framework-section">
+                    <h3 class="framework-section-title">Deployment Boosters • $99/mo each</h3>
+                    <div class="deployment-grid">
+                        <div class="deployment-card cloud">
+                            <div class="deployment-name">Cloud</div>
+                            <div class="deployment-vectors">12 vectors</div>
+                        </div>
+                        <div class="deployment-card edge">
+                            <div class="deployment-name">Edge/IoT</div>
+                            <div class="deployment-vectors">8 vectors</div>
+                        </div>
+                        <div class="deployment-card premise">
+                            <div class="deployment-name">On-Premise</div>
+                            <div class="deployment-vectors">8 vectors</div>
+                        </div>
+                        <div class="deployment-card hybrid">
+                            <div class="deployment-name">Hybrid</div>
+                            <div class="deployment-vectors">15 vectors</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Package Builder Example -->
+                <div class="package-builder">
+                    <h3 class="builder-title">📋 Example Configuration</h3>
+                    <div class="builder-example">
+                        <div class="example-formula">
+                            Healthcare + Finance + EU + California + LLM + RAG + Cloud = 
+                        </div>
+                        <div class="example-calculation">
+                            Core (75) + HC (18) + FI (20) + EU (25) + CA (15) + LLM (15) + RAG (15) + Cloud (12) = <span class="total-vectors">195 vectors</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Selection Flow -->
+                <div class="selection-flow">
+                    <h3 class="flow-title">🔄 Selection Flow</h3>
+                    <div class="flow-steps">
+                        <div class="flow-step">1. Start with Core</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">2. Add Industries</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">3. Add Regions</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">4. Add AI Types</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">5. Add Deploy</div>
+                    </div>
+                </div>
+                
+                <!-- Framework Summary -->
+                <div class="framework-summary">
+                    <div class="summary-stat">
+                        <div class="summary-number">220+</div>
+                        <div class="summary-label">Total Threat Vectors</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="summary-number">5</div>
+                        <div class="summary-label">Package Layers</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="summary-number">∞</div>
+                        <div class="summary-label">Configurations</div>
+                    </div>
+                </div>
+            </div>
+            <div class="protection-scope floating">
+                <div class="protection-title">🛡️ Our Universal Protection</div>
+                <div class="protection-text">
+                    We're building the <span class="highlight">immune system for the entire AI ecosystem</span> - 
+                    from the smallest chatbot to the largest enterprise AI deployment. 
+                    Every system that processes language, understands context, or generates responses 
+                    can be secured by AITIF.
+                </div>
+                <div class="analogy-grid">
+                    <div class="analogy-card">
+                        <div class="analogy-icon">🔒</div>
+                        <div class="analogy-title">Like SSL for Websites</div>
+                        <div class="analogy-description">Mandatory security layer for every web connection</div>
+                    </div>
+                    <div class="analogy-card">
+                        <div class="analogy-icon">🛡️</div>
+                        <div class="analogy-title">Like Antivirus for PCs</div>
+                        <div class="analogy-description">Essential protection for every computer</div>
+                    </div>
+                    <div class="analogy-card">
+                        <div class="analogy-icon">🩺</div>
+                        <div class="analogy-title">Like Vaccines for Health</div>
+                        <div class="analogy-description">Proactive immunity against threats</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vision Section -->
+            <div class="vision-section pulse">
+                <div class="vision-title">🌟 Our Vision</div>
+                <div class="vision-text">
+                    Become the <span class="highlight">mandatory security layer</span> for AI - 
+                    Every AI system, everywhere, protected by AITIF. 
+                    Just like how no website runs without SSL and no computer runs without antivirus, 
+                    no AI system should run without AITIF protection.
+                </div>
+                <div class="analogy-grid">
+                    <div class="analogy-card">
+                        <div class="analogy-icon">🌍</div>
+                        <div class="analogy-title">Global Standard</div>
+                        <div class="analogy-description">The universal security protocol for AI</div>
+                    </div>
+                    <div class="analogy-card">
+                        <div class="analogy-icon">⚡</div>
+                        <div class="analogy-title">Real-Time Protection</div>
+                        <div class="analogy-description">Continuous immunity against evolving threats</div>
+                    </div>
+                    <div class="analogy-card">
+                        <div class="analogy-icon">🧬</div>
+                        <div class="analogy-title">Self-Evolving</div>
+                        <div class="analogy-description">Learns and adapts to new attack vectors</div>
+                    </div>
+                    <div class="analogy-card">
+                        <div class="analogy-icon">🎯</div>
+                        <div class="analogy-title">100% Coverage</div>
+                        <div class="analogy-description">Every AI interaction, everywhere, secured</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Interactive Controls -->
+        <div class="interactive-controls">
+            <button class="control-btn tooltip" data-tooltip="Animate statistics" onclick="animateStats()">📊</button>
+            <button class="control-btn tooltip" data-tooltip="Add more stars" onclick="addStars()">✨</button>
+            <button class="control-btn tooltip" data-tooltip="Highlight categories" onclick="highlightCategories()">🎯</button>
+        </div>
+    </div>
+
+    <script>
+        // Create animated background stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numStars = 100;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Animate numbers counting up
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                
+                if (element.id === 'marketSize') {
+                    element.textContent = '$' + Math.floor(current) + 'B';
+                } else if (element.id === 'coverage') {
+                    element.textContent = Math.floor(current) + '%';
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString() + '+';
+                }
+            }, 16);
+        }
+        
+        // Animate statistics
+        function animateStats() {
+            const stats = [
+                { id: 'aiSystems', target: 500000 },
+                { id: 'monthlyGrowth', target: 50000 },
+                { id: 'marketSize', target: 50 },
+                { id: 'coverage', target: 100 }
+            ];
+            
+            stats.forEach((stat, index) => {
+                setTimeout(() => {
+                    const element = document.getElementById(stat.id);
+                    element.classList.add('animated');
+                    animateCounter(element, stat.target);
+                }, index * 300);
+            });
+        }
+        
+        // Add more stars
+        function addStars() {
+            const starsContainer = document.getElementById('stars');
+            const numNewStars = 50;
+            
+            for (let i = 0; i < numNewStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                star.style.background = `hsl(${Math.random() * 60 + 200}, 100%, 70%)`;
+                starsContainer.appendChild(star);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    if (star.parentNode) {
+                        star.parentNode.removeChild(star);
+                    }
+                }, 5000);
+            }
+        }
+        
+        // Highlight categories with animation
+        function highlightCategories() {
+            const categories = document.querySelectorAll('.ecosystem-category');
+            
+            categories.forEach((category, index) => {
+                setTimeout(() => {
+                    category.style.transform = 'scale(1.05)';
+                    category.style.borderColor = '#22c55e';
+                    category.style.boxShadow = '0 0 30px rgba(34, 197, 94, 0.5)';
+                    
+                    setTimeout(() => {
+                        category.style.transform = '';
+                        category.style.borderColor = '';
+                        category.style.boxShadow = '';
+                    }, 1000);
+                }, index * 200);
+            });
+        }
+        
+        // Expand category on click
+        function expandCategory(element) {
+            const systems = element.querySelector('.ai-systems');
+            const isExpanded = systems.style.maxHeight;
+            
+            if (isExpanded) {
+                systems.style.maxHeight = '';
+                systems.style.opacity = '1';
+            } else {
+                systems.style.maxHeight = systems.scrollHeight + 'px';
+                systems.style.opacity = '1';
+            }
+            
+            // Add visual feedback
+            element.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                element.style.transform = '';
+            }, 200);
+        }
+        
+        // Smooth scroll to section
+        function scrollToSection(selector) {
+            document.querySelector(selector).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            // Auto-animate stats after a delay
+            setTimeout(() => {
+                animateStats();
+            }, 1000);
+            
+            // Add intersection observer for animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.ecosystem-category, .stat-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
+        // Add M-AITIF package builder interactivity
+        function selectPackage(element, type) {
+            // Remove previous selections of same type
+            const typeClass = element.className.split(' ').find(cls => cls.includes(type));
+            document.querySelectorAll(`.${typeClass}`).forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Add selection to clicked element
+            element.classList.add('selected');
+            
+            // Update package calculation
+            updatePackageCalculation();
+        }
+        
+        function updatePackageCalculation() {
+            // This would calculate total vectors and cost based on selections
+            const selected = document.querySelectorAll('.selected');
+            let totalVectors = 0;
+            let totalCost = 0;
+            
+            selected.forEach(el => {
+                // Extract vector count and price from element
+                const vectorText = el.querySelector('.vector-count, .amplifier-vectors, .deployment-vectors');
+                if (vectorText) {
+                    const vectors = parseInt(vectorText.textContent);
+                    totalVectors += vectors;
+                }
+            });
+            
+            // Update total display if exists
+            const totalDisplay = document.querySelector('.total-vectors');
+            if (totalDisplay && totalVectors > 0) {
+                totalDisplay.textContent = totalVectors + ' vectors';
+            }
+        }
+        
+        // Add click handlers for package selection
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add selection functionality to package cards
+            document.querySelectorAll('.package-card, .amplifier-card, .enhancement-card, .compliance-card, .deployment-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('selected');
+                    updatePackageCalculation();
+                });
+            });
+        });
+        document.addEventListener('mousemove', function(e) {
+            const cards = document.querySelectorAll('.stat-card, .ecosystem-category');
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardCenterX = rect.left + rect.width / 2;
+                const cardCenterY = rect.top + rect.height / 2;
+                
+                const deltaX = mouseX - cardCenterX;
+                const deltaY = mouseY - cardCenterY;
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                
+                if (distance < 200) {
+                    const strength = (200 - distance) / 200;
+                    const rotateX = (deltaY / 200) * strength * 5;
+                    const rotateY = (deltaX / 200) * strength * -5;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                } else {
+                    card.style.transform = '';
+                }
+            });
+        });
+        
+        // Reset transforms when mouse leaves
+        document.addEventListener('mouseleave', function() {
+            document.querySelectorAll('.stat-card, .ecosystem-category').forEach(card => {
+                card.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>
